@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'polymorphic',
+    'custom_authentication.apps.CustomAuthenticationConfig'
 ]
 
 MIDDLEWARE = [
@@ -66,6 +69,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'custom_authentication.User'
 
 WSGI_APPLICATION = 'patient.wsgi.application'
 

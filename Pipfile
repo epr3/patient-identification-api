@@ -9,6 +9,8 @@ autopep8 = "*"
 [packages]
 django = "*"
 django-rest-framework = "*"
+django-polymorphic = "*"
+django-rest-polymorphic = "*"
 
 [requires]
 python_version = "3.7"
