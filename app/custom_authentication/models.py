@@ -3,7 +3,6 @@ from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 from polymorphic.models import PolymorphicModel
 
-
 class User(AbstractBaseUser, PolymorphicModel):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     email = models.EmailField(unique=True)
@@ -17,9 +16,14 @@ class User(AbstractBaseUser, PolymorphicModel):
     REQUIRED_FIELDS = []
 
 
+class RefreshToken(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    token = models.CharField(max_length=100)
+    expiry_date = models.DateField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 class Medic(User):
     pass
-
 
 class Patient(User):
     insure_code = models.CharField(max_length=20)
