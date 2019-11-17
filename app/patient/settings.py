@@ -72,6 +72,8 @@ TEMPLATES = [
 
 AUTH_USER_MODEL = 'custom_authentication.User'
 
+AUTHENTICATION_BACKENDS = ['custom_authentication.backends.PatientAPIBackend']
+
 WSGI_APPLICATION = 'patient.wsgi.application'
 
 
