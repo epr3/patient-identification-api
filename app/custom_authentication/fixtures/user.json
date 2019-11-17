@@ -1,0 +1,13 @@
+[
+  {
+    "model": "custom_authentication.User",
+    "pk": 1,
+    "fields": {
+      "email": "test@test.com",
+      "first_name": "Gigi",
+      "last_name": "Gigi",
+      "date_of_birth": "1990-08-18",
+      "pnc": "1993322444222"
+    }
+  }
+]
