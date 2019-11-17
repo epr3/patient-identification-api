@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 @api_view(['POST'])
 def login(request):
-  user = authenticate(request.data)
+  user = authenticate(request, **request.data)
   if user is not None:
     return Response('Login', status=status.HTTP_200_OK)
   else:
