@@ -3,7 +3,7 @@ from .models import User
 from django.db.models import ObjectDoesNotExist
 
 
-class PatientAPIBackend(ModelBackend):
+class APIBackend(ModelBackend):
     def authenticate(self, request, pnc=None, password=None, **kwargs):
         try:
             user = User.objects.get(pnc=pnc)

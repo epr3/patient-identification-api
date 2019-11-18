@@ -6,12 +6,14 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from .models import User
 
+
 class UserAdmin(BaseUserAdmin):
 
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('email', 'date_of_birth', 'is_superuser')
+    list_display = ('pnc', 'email', 'date_of_birth', 'first_name',
+                    'last_name', 'is_superuser', 'is_medic', 'is_patient', )
     list_filter = ('is_superuser',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
@@ -24,7 +26,7 @@ class UserAdmin(BaseUserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('email', 'date_of_birth', 'password')}
-        ),
+         ),
     )
     search_fields = ('email',)
     ordering = ('email',)

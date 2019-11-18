@@ -72,7 +72,9 @@ TEMPLATES = [
 
 AUTH_USER_MODEL = 'custom_authentication.User'
 
-AUTHENTICATION_BACKENDS = ['custom_authentication.backends.PatientAPIBackend']
+AUTHENTICATION_BACKENDS = (
+    'custom_authentication.backends.APIBackend', 'django.contrib.auth.backends.ModelBackend',)
+
 
 WSGI_APPLICATION = 'patient.wsgi.application'
 
