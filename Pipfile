@@ -11,6 +11,7 @@ django = "*"
 django-rest-framework = "*"
 django-polymorphic = "*"
 django-rest-polymorphic = "*"
+pyjwt = "*"
 
 [requires]
 python_version = "3.7"
