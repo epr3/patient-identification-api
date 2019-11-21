@@ -12,7 +12,7 @@ from .models import User, RefreshToken
 def login(request):
     user = authenticate(request, **request.data)
     if user is not None:
-        payload = {
+        access_payload = {
             'context': {
                 'id': user.id.__str__(),
                 'is_medic': user.is_medic,
@@ -23,11 +23,26 @@ def login(request):
             'exp': datetime.utcnow() + timedelta(seconds=settings.JWT_ACCESS_EXP_DELTA_SECONDS)
         }
 
+        refresh_payload = {
+            'context': {
+                'id': user.id.__str__(),
+                'is_medic': user.is_medic,
+                'is_staff': user.is_staff,
+                'is_medic': user.is_medic,
+                'is_superuser': user.is_superuser
+            },
+            'exp': datetime.utcnow() + timedelta(seconds=settings.JWT_REFRESH_EXP_DELTA_SECONDS)
+        }
+
         access_token = jwt.encode(
-            payload, settings.JWT_SECRET, settings.JWT_ALGORITHM)
+            access_payload, settings.JWT_SECRET, settings.JWT_ALGORITHM)
         refresh_token = jwt.encode(
-            payload, settings.JWT_SECRET, settings.JWT_ALGORITHM)
-        return Response({'access_token': access_token}, status=status.HTTP_200_OK)
+            refresh_payload, settings.JWT_SECRET, settings.JWT_ALGORITHM)
+        response = Response({'access_token': access_token},
+                            status=status.HTTP_200_OK)
+        response.set_cookie(key='refresh_token', value=refresh_token, expires=datetime.utcnow(
+        ) + timedelta(seconds=settings.JWT_REFRESH_EXP_DELTA_SECONDS), httponly=True)
+        return response
     else:
         return Response('Invalid PNC or password', status=status.HTTP_401_UNAUTHORIZED)
 
