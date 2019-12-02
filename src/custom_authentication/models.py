@@ -4,6 +4,7 @@ from django.contrib.auth.base_user import AbstractBaseUser
 
 from .managers import UserManager
 
+
 class User(AbstractBaseUser):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     email = models.EmailField(unique=True)
@@ -29,10 +30,13 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return self.is_staff or self.is_superuser
 
+    def __str__(self):
+        return str(self.id)
+
 
 class RefreshToken(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    token = models.CharField(max_length=100)
+    token = models.CharField(max_length=255)
     expiry_date = models.DateField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
