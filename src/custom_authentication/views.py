@@ -39,8 +39,7 @@ class Login(APIView):
             refresh_token = jwt.encode(
                 refresh_payload, settings.JWT_SECRET, settings.JWT_ALGORITHM)
             serializer = RefreshTokenSerializer(
-                data={'token': refresh_token.decode('utf-8'), 'user': user, 'expiry_date': (datetime.utcnow() + timedelta(seconds=settings.JWT_REFRESH_EXP_DELTA_SECONDS)).strftime('%Y-%m-%d')})
-
+                data={'token': refresh_token.decode('utf-8'), 'user': user.id, 'expiry_date': (datetime.utcnow() + timedelta(seconds=settings.JWT_REFRESH_EXP_DELTA_SECONDS)).strftime('%Y-%m-%d')})
             if serializer.is_valid():
                 serializer.save()
                 response = Response({'access_token': access_token},

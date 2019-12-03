@@ -30,9 +30,6 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return self.is_staff or self.is_superuser
 
-    def __str__(self):
-        return str(self.id)
-
 
 class RefreshToken(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)

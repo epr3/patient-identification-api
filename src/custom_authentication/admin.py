@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from .models import User
+from .models import User, RefreshToken, PatientCard
 
 
 class UserAdmin(BaseUserAdmin):
@@ -12,7 +12,7 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('pnc', 'email', 'date_of_birth', 'first_name',
+    list_display = ('id', 'pnc', 'email', 'date_of_birth', 'first_name',
                     'last_name', 'is_superuser', 'is_medic', 'is_patient', )
     list_filter = ('is_superuser',)
     fieldsets = (
@@ -32,9 +32,17 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
+class PatientCardAdmin(admin.ModelAdmin):
+    list_display = ('id', 'insure_code', 'expiry_date', 'assigned_medic')
+
+
+class RefreshTokenAdmin(admin.ModelAdmin):
+    list_display = ('id', 'token', 'expiry_date', 'user')
 
 # Now register the new UserAdmin...
 admin.site.register(User, UserAdmin)
+admin.site.register(PatientCard, PatientCardAdmin)
+admin.site.register(RefreshToken, RefreshTokenAdmin)
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 admin.site.unregister(Group)

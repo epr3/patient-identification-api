@@ -8,6 +8,8 @@ class UserSerializer(serializers.ModelSerializer):
     model = User
 
 class RefreshTokenSerializer(serializers.ModelSerializer):
+  user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(
+  ), pk_field=serializers.UUIDField(format='hex_verbose'))
   class Meta:
     model = RefreshToken
     fields = ['token', 'expiry_date', 'user']
