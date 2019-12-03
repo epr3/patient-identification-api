@@ -23,14 +23,16 @@ class UserAdmin(BaseUserAdmin):
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'date_of_birth', 'password')}
-         ),
+        (
+            None, {
+                'classes': ('wide',),
+                'fields': ('email', 'date_of_birth', 'password')}
+        ),
     )
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()
+
 
 class PatientCardAdmin(admin.ModelAdmin):
     list_display = ('id', 'insure_code', 'expiry_date', 'assigned_medic')
@@ -38,6 +40,7 @@ class PatientCardAdmin(admin.ModelAdmin):
 
 class RefreshTokenAdmin(admin.ModelAdmin):
     list_display = ('id', 'token', 'expiry_date', 'user')
+
 
 # Now register the new UserAdmin...
 admin.site.register(User, UserAdmin)
