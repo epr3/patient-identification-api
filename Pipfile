@@ -6,7 +6,8 @@ verify_ssl = true
 [dev-packages]
 faker = "*"
 yapf = "*"
-flake8 = "*"
+pylint = "*"
+pylint-django = "*"
 
 [packages]
 django = "*"
