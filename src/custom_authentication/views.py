@@ -52,14 +52,3 @@ class Login(APIView):
                 return Response('Error while logging in', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             return Response('Invalid PNC or password', status=status.HTTP_401_UNAUTHORIZED)
-
-# TODO
-
-
-class Register(APIView):
-    def post(self, request):
-        user = authenticate(request.data)
-        if user is not None:
-            return Response('Login', status=status.HTTP_200_OK)
-        else:
-            return Response('Invalid PNC or password', status=status.HTTP_401_UNAUTHORIZED)
