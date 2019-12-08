@@ -58,14 +58,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'custom_authentication.authentication.JWTAuthentication',
-    ],
-}
-
 WSGI_APPLICATION = 'patient.wsgi.application'
 
 # Database

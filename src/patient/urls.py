@@ -20,6 +20,7 @@ from patient_summary import views as summary_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('refresh/', auth_views.RefreshTokenView.as_view()),
     path('login/', auth_views.Login.as_view()),
     path('logout/', auth_views.Logout.as_view()),
     path('test/', summary_views.HelloView.as_view())
