@@ -20,7 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.admin', 'django.contrib.auth',
     'django.contrib.contenttypes', 'django.contrib.sessions',
     'django.contrib.messages', 'django.contrib.staticfiles', 'rest_framework',
-    'custom_authentication.apps.CustomAuthenticationConfig'
+    'custom_authentication', 'patient_summary'
 ]
 
 MIDDLEWARE = [
@@ -57,6 +57,14 @@ AUTHENTICATION_BACKENDS = (
     'custom_authentication.backends.APIBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'custom_authentication.authentication.JWTAuthentication',
+    ],
+}
 
 WSGI_APPLICATION = 'patient.wsgi.application'
 

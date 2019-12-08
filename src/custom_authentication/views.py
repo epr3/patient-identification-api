@@ -5,11 +5,14 @@ from django.conf import settings
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.authentication import BasicAuthentication
 from .models import RefreshToken
 from .serializers import RefreshTokenSerializer
 
 
 class Login(APIView):
+    authentication_classes = [BasicAuthentication]
+
     def post(self, request):
         user = authenticate(request, **request.data)
         if user is not None:
@@ -62,9 +65,8 @@ class Login(APIView):
                     timedelta(seconds=settings.JWT_REFRESH_EXP_DELTA_SECONDS),
                     httponly=True)
                 return response
-            else:
-                return Response('Error while logging in',
-                                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response('Error while logging in',
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             return Response('Invalid PNC or password',
                             status=status.HTTP_401_UNAUTHORIZED)
